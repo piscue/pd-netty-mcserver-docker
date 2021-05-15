@@ -21,4 +21,4 @@ RUN wget http://msp.ucsd.edu/Software/$PD_TARBALL && \
 
 ADD app /app
 WORKDIR /app
-ENTRYPOINT ["/usr/local/bin/puredata", "-nogui", "netty-mcserver.pd" ]
+CMD ["/usr/local/bin/puredata", "-nogui", "netty-mcserver.pd" ]
