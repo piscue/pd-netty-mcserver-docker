@@ -4,12 +4,12 @@ ARG PD_TARBALL=pd-$PD_VERSION.src.tar.gz
 ARG PD_FOLDER=pd-$PD_VERSION
 
 RUN apt update && \
-    apt install --no-install-recommends -y wget dh-autoreconf && \
+    apt install --no-install-recommends -y \
+    wget dh-autoreconf libasound2-dev && \
     apt clean && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/man/man1
 
-ADD app /app
 WORKDIR /tmp
 RUN wget http://msp.ucsd.edu/Software/$PD_TARBALL && \
     tar xzvf $PD_TARBALL && \
@@ -19,5 +19,6 @@ RUN wget http://msp.ucsd.edu/Software/$PD_TARBALL && \
     make && \
     make install
 
+ADD app /app
 WORKDIR /app
 ENTRYPOINT ["puredata", "-nogui", "netty-mcserver.pd" ]
